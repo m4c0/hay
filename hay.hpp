@@ -13,7 +13,6 @@ public:
   constexpr hay & operator=(const hay &) = delete;
   constexpr hay & operator=(hay &&) = delete;
 
-  constexpr operator       T  () const { return m_t; }
   constexpr operator       T &()       { return m_t; }
   constexpr operator const T &() const { return m_t; }
   constexpr operator       T *()       { return &m_t; }
