@@ -22,4 +22,8 @@ int main() {
 
   using malloced = hay<void *, malloc, free>;
   printf("%p\n", static_cast<void *>(malloced { 100 }));
+
+  struct cls { void fn() {} };
+  hay<cls *, nullptr, [](cls * n) { delete n; }> obj { new cls() };
+  obj->fn();
 }
