@@ -1,4 +1,4 @@
-#pragma leco tool
+#pragma leco test
 #define _CRT_SECURE_NO_WARNINGS // Because Windows
 
 import hay;
