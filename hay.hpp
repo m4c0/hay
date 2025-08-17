@@ -9,9 +9,15 @@ public:
   constexpr ~hay() { (*D)(m_t); }
 
   constexpr hay(const hay &) = delete;
-  constexpr hay(hay &&) = delete;
   constexpr hay & operator=(const hay &) = delete;
-  constexpr hay & operator=(hay &&) = delete;
+
+  constexpr hay(hay && o) : m_t { o.m_t } { o.m_t = T {}; }
+  constexpr hay & operator=(hay && o) {
+    (*D)(m_t);
+    m_t = o.m_t;
+    o.m_t = T {};
+    return *this;
+  }
 
   constexpr operator       T &()       { return m_t; }
   constexpr operator const T &() const { return m_t; }
