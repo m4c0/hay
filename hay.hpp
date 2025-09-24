@@ -1,6 +1,6 @@
 #pragma once
 
-template<typename T, auto C, auto D>
+template<typename T, auto C = nullptr, auto D = nullptr>
 class hay {
   T m_t;
 
@@ -29,4 +29,7 @@ public:
 };
 template<typename T, auto D>
 struct hay<T, nullptr, D> : hay<T, [](T t) { return t; }, D> {
+};
+template<typename T>
+struct hay<T, nullptr, nullptr> : hay<T, nullptr, [](T t) { delete t; }> {
 };

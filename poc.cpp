@@ -26,4 +26,11 @@ int main() {
   struct cls { void fn() {} };
   hay<cls *, nullptr, [](cls * n) { delete n; }> obj { new cls() };
   obj->fn();
+
+  struct verbose_cls {
+    verbose_cls() { printf("ctor %p\n", this); }
+    ~verbose_cls() { printf("dtor %p\n", this); }
+    void fn() { printf("fn %p\n", this); }
+  };
+  hay<verbose_cls *> { new verbose_cls() }->fn();
 }
