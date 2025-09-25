@@ -33,4 +33,9 @@ int main() {
     void fn() { printf("fn %p\n", this); }
   };
   hay<verbose_cls *> { new verbose_cls() }->fn();
+
+  hay<char[]> cstr { 3 };
+  cstr[0] = 'O';
+  cstr[1] = 'K';
+  puts(cstr);
 }

@@ -33,3 +33,12 @@ struct hay<T, nullptr, D> : hay<T, [](T t) { return t; }, D> {
 template<typename T>
 struct hay<T, nullptr, nullptr> : hay<T, nullptr, [](T t) { delete t; }> {
 };
+
+template<typename T>
+struct hay<T[], nullptr, nullptr> : hay<T *,
+  [](unsigned n) { return new T[n] {}; },
+  [](T * t) { delete[] t; }> {
+
+  constexpr const T & operator[](unsigned i) const { return static_cast<const T *>(*this)[i]; }
+  constexpr       T & operator[](unsigned i)       { return static_cast<      T *>(*this)[i]; }
+};
