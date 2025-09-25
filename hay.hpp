@@ -19,13 +19,14 @@ public:
     return *this;
   }
 
+  constexpr auto & data(this auto && self) { return self.m_t; }
+
   constexpr operator       T &()       { return m_t; }
   constexpr operator const T &() const { return m_t; }
   constexpr operator       T *()       { return &m_t; }
   constexpr operator const T *() const { return &m_t; }
 
-  constexpr const T & operator->() const { return m_t; }
-  constexpr       T & operator->()       { return m_t; }
+  constexpr auto & operator->(this auto && self) { return self.m_t; }
 };
 template<typename T, auto D>
 struct hay<T, nullptr, D> : hay<T, [](T t) { return t; }, D> {
@@ -39,6 +40,5 @@ struct hay<T[], nullptr, nullptr> : hay<T *,
   [](unsigned n) { return new T[n] {}; },
   [](T * t) { delete[] t; }> {
 
-  constexpr const T & operator[](unsigned i) const { return static_cast<const T *>(*this)[i]; }
-  constexpr       T & operator[](unsigned i)       { return static_cast<      T *>(*this)[i]; }
+  constexpr auto & operator[](this auto && self, unsigned i) { return self.data()[i]; }
 };

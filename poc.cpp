@@ -23,9 +23,9 @@ int main() {
   using malloced = hay<void *, malloc, free>;
   printf("%p\n", static_cast<void *>(malloced { 100 }));
 
-  struct cls { void fn() {} };
+  struct cls { void fn() const {} };
   hay<cls *, nullptr, [](cls * n) { delete n; }> obj { new cls() };
-  obj->fn();
+  static_cast<const cls *>(obj)->fn();
 
   struct verbose_cls {
     verbose_cls() { printf("ctor %p\n", this); }
