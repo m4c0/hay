@@ -13,9 +13,11 @@ public:
 
   constexpr hay(hay && o) : m_t { o.m_t } { o.m_t = T {}; }
   constexpr hay & operator=(hay && o) {
-    (*D)(m_t);
-    m_t = o.m_t;
-    o.m_t = T {};
+    if (this != &o) {
+      (*D)(m_t);
+      m_t = o.m_t;
+      o.m_t = T {};
+    }
     return *this;
   }
 
