@@ -13,3 +13,8 @@ static_assert([] {
   x = static_cast<hay<bool *> &&>(x);
   return *static_cast<bool *>(x);
 }());
+static_assert([] {
+  hay<bool *> x { new bool { true } };
+  hay<bool *> y = static_cast<hay<bool *> &&>(x);
+  return *static_cast<bool *>(y) && !x.data();
+}());
